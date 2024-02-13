@@ -15,7 +15,11 @@
       </span>
 
       <div>
-        <button class="text-gray-600 dark:text-gray-300 hover:underline hidden sm:block">Home</button>
+        <button
+          routerLink="cart"
+          class="text-gray-600 dark:text-gray-300 hover:underline hidden sm:block">
+          Cart<span class="mx-2">{{ countTest()?.length }}</span>
+        </button>
       </div>
     </div>
   </div>

@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'counter',
+    redirectTo: 'product',
     pathMatch: 'full'
   },
   {
@@ -17,5 +17,14 @@ export const routes: Routes = [
   {
     path: 'counter',
     loadComponent: () => import('./counter/counter.component').then(c => c.CounterComponent)
+  },
+  {
+    path: 'product',
+    loadComponent: () => import('./product/product.component').then(p => p.ProductComponent)
+  }
+  ,
+  {
+    path: 'cart',
+    loadComponent: () => import('./cart/cart.component').then(c => c.CartComponent)
   }
 ];
