@@ -1,6 +1,6 @@
-import {IProduct} from "../shared/model/product.interface";
-import {patchState, signalStore, withComputed, withMethods, withState} from "@ngrx/signals";
-import {computed} from "@angular/core";
+import { IProduct } from "../shared/model/product.interface";
+import { patchState, signalStore, withComputed, withMethods, withState } from "@ngrx/signals";
+import { computed } from "@angular/core";
 
 interface ICartStoreState {
   products: IProduct[],

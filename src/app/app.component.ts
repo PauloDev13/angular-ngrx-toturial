@@ -16,7 +16,16 @@ import { ScreenSizeSignal } from './shared/signals/screen-size.signal';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, HeaderComponent, FooterComponent, HeroComponent, MatButtonModule, MatSidenavModule,ScreenSizeDirective,
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    RouterLink,
+    HeaderComponent,
+    FooterComponent,
+    HeroComponent,
+    MatButtonModule,
+    MatSidenavModule,
+    ScreenSizeDirective,
     MatSidenavModule,
     MatCheckboxModule,
     MatFormFieldModule,

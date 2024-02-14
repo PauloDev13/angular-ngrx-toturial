@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SideBarSignal } from '../../../shared/signals/sidebar.signal';
-import {RouterLink} from "@angular/router";
-import {CartStore} from "../../../store/cart.store";
-import {JsonPipe} from "@angular/common";
+import { RouterLink } from "@angular/router";
+import { CartStore } from "../../../store/cart.store";
+import { JsonPipe } from "@angular/common";
 
 @Component({
   selector: 'app-header',
