@@ -1,5 +1,12 @@
-<div class="grid grid-cols-3 gap-4 ">
-  @for (item of products$ | async; track $index) {
-    <app-product-card (handleAddToCart)="addToCart($event)" [product]="item"/>
-  }
-</div>
+@if (error$ | async) {
+  <h1 class="text-4xl dark:text-white">
+    Ocorreu um erro ao carregar produtos
+  </h1>
+} @else {
+  <div class="grid grid-cols-4 gap-5 ">
+    @for (item of products$ | async; track $index) {
+      <app-product-card (handleAddToCart)="addToCart($event)" [product]="item"/>
+    }
+  </div>
+
+}

@@ -41,7 +41,7 @@ export const cartReducer = createReducer(
         totalPrice: calculateTotalPrice(updatedProducts)
       };
     }),
-  on(decrementProduct, (state, {productId}) => {
+  on(decrementProduct, (state, { productId}) => {
     const updatedProducts = state.products.map(
       product => product.id === productId
         ? {...product, quantity: product.quantity - 1}
