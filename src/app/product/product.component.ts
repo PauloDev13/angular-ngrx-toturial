@@ -2,13 +2,9 @@ import {Component, inject} from '@angular/core';
 import {ProductCardComponent} from "../shared/components/product-card/product-card.component";
 import {AsyncPipe} from "@angular/common";
 
-import {addToCart} from "../state/cart/cart.action";
 import {IProduct} from "../shared/model/product.interface";
-import {Store} from "@ngrx/store";
-import {AppState} from "../state/app.state";
-import {Observable} from "rxjs";
-import {loadProduct} from "../state/product/product.action";
-import {selectAllProducts, selectProductsError} from "../state/product/product.selector";
+import {CartStore} from "../store/cart.store";
+import {ProductStore} from "../store/product.store";
 
 @Component({
   selector: 'app-product',
@@ -21,17 +17,17 @@ import {selectAllProducts, selectProductsError} from "../state/product/product.s
   styleUrl: './product.component.scss'
 })
 export class ProductComponent {
-  private store = inject(Store<AppState>);
-  products$!: Observable<IProduct[]>
-  error$!: Observable<string | null>
+  private cartStore = inject(CartStore);
+  private productStore = inject(ProductStore);
+
+  protected products = this.productStore.products;
+  protected error = this.productStore.error;
 
   constructor() {
-    this.store.dispatch(loadProduct());
-    this.products$ = this.store.select(selectAllProducts);
-    this.error$ = this.store.select(selectProductsError);
+    this.productStore.loadProducts();
   }
 
   addToCart(product: IProduct) {
-    this.store.dispatch(addToCart({ product }))
+    this.cartStore.addToCart(product);
   }
 }

@@ -1,9 +1,7 @@
 import {Component, inject} from '@angular/core';
-import {Store} from "@ngrx/store";
-import {AppState} from "../state/app.state";
-import {selectCartProducts, selectCartTotalPrice} from "../state/cart/cart.selector";
 import {AsyncPipe, CurrencyPipe, JsonPipe} from "@angular/common";
-import {decrementProduct, incrementProduct, removeProduct} from "../state/cart/cart.action";
+import {CartStore} from "../store/cart.store";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-cart',
@@ -11,26 +9,30 @@ import {decrementProduct, incrementProduct, removeProduct} from "../state/cart/c
   imports: [
     AsyncPipe,
     JsonPipe,
-    CurrencyPipe
+    CurrencyPipe,
+    RouterLink,
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
 export class CartComponent {
-  private store = inject(Store<AppState>)
-
-  protected cartItems$ = this.store.select(selectCartProducts);
-  protected totalPrice$ = this.store.select(selectCartTotalPrice)
+  private cartStore = inject(CartStore);
+  protected cartItems = this.cartStore.products;
+  protected totalPrice = this.cartStore.totalPrice;
 
   protected removeProduct(productId: number) {
-    this.store.dispatch(removeProduct({ productId }));
+    this.cartStore.removeProduct(productId);
   }
 
   protected incrementProduct(productId: number) {
-    this.store.dispatch(incrementProduct({ productId }))
+    this.cartStore.incrementProduct(productId);
   }
 
-  protected decrementProduct(productId: number) {
-    this.store.dispatch(decrementProduct({ productId }))
+  protected decrementProduct(productId: number, quantity: number) {
+    if (quantity <= 1) {
+      this.removeProduct(productId);
+    } else {
+      this.cartStore.decrementProduct(productId);
+    }
   }
 }

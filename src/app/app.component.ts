@@ -35,7 +35,7 @@ export class AppComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
   toggle() {
-    this.sidenav.toggle();
+    this.sidenav.toggle().then();
     // this.showFiller = !this.showFiller;
     // this.showFiller ? this.sidenav.open() : this.sidenav.close();
   }

@@ -1,7 +1,7 @@
 import {patchState, signalStore, withComputed, withMethods, withState} from "@ngrx/signals";
 import {computed} from "@angular/core";
 
-export interface ICounterStoreState {
+interface ICounterStoreState {
   count: number;
 }
 
