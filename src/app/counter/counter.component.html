@@ -6,7 +6,12 @@
       </h1>
     </div>
     <div id="counter" class="text-4xl font-bold text-blue-500 mb-4">
-      {{ count$ | async }}
+      Single:
+      {{ count() }}
+    </div>
+    <div id="counter2" class="text-4xl font-bold text-blue-500 mb-4">
+      Double:
+      {{ double() }}
     </div>
     <div class="flex justify-center space-x-4">
       <button
