@@ -11,7 +11,6 @@ import {cartReducer} from "./state/cart/cart.reducer";
 import {productReducer} from "./state/product/product.reducer";
 import {provideEffects} from "@ngrx/effects";
 import {ProductEffects} from "./state/product/product.effects";
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withViewTransitions()),

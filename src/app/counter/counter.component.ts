@@ -1,38 +1,32 @@
-import {Component, computed, signal} from '@angular/core';
-import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
-import {AppState} from "../state/app.state";
-import {selectCount} from "../state/counter/counter.selector";
+import {Component, inject} from '@angular/core';
 import {AsyncPipe} from "@angular/common";
+import {CounterStore} from "../store/counter.store";
 
 @Component({
   selector: 'app-counter',
   standalone: true,
   imports: [
-    AsyncPipe
+    AsyncPipe,
   ],
+  providers: [CounterStore],
   templateUrl: './counter.component.html',
   styleUrl: './counter.component.scss'
 })
 export class CounterComponent {
-  count$: Observable<number>;
-  count = signal(0);
-  double = computed(() => this.count() * 2)
+  protected counterStore = inject(CounterStore);
+  protected count = this.counterStore.count;
+  protected doubleCount = this.counterStore.doubleCount;
 
-  constructor(private store: Store<AppState>) {
-    this.count$ = store.select(selectCount);
+  protected increment() {
+    this.counterStore.increment();
   }
 
-  increment() {
-    this.count.update(num => num + 1);
+  protected decrement() {
+    this.counterStore.decrement();
   }
 
-  decrement() {
-    this.count.update(num => num -  1);
-  }
-
-  reset() {
-    this.count.set(0);
+  protected reset() {
+    this.counterStore.reset();
   }
 
 }
