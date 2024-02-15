@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, input, Output} from '@angular/core';
 import {IProduct} from "../../model/product.interface";
 import {CurrencyPipe} from "@angular/common";
 
@@ -12,8 +12,8 @@ import {CurrencyPipe} from "@angular/common";
   styleUrl: './product-card.component.scss'
 })
 export class ProductCardComponent {
-  @Input({ required: true }) product!: IProduct
   @Output() handleAddToCart: EventEmitter<IProduct> = new EventEmitter;
+  product = input.required<IProduct>();
 
   add(product: IProduct) {
     this.handleAddToCart.emit(product);

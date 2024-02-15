@@ -1,5 +1,5 @@
 import {IProduct} from "../shared/model/product.interface";
-import {patchState, signalStore, withMethods, withState} from "@ngrx/signals";
+import {patchState, signalStore, withHooks, withMethods, withState} from "@ngrx/signals";
 import {inject} from "@angular/core";
 import {ProductApiService} from "../shared/service/product-api.service";
 import {toSignal} from "@angular/core/rxjs-interop";
@@ -24,7 +24,7 @@ export const ProductStore = signalStore(
 
   withState(initialProductStoreState),
 
-  withMethods((state) => {
+  withMethods((store) => {
     const productService = inject(ProductApiService);
     return {
       load: rxMethod<void>(
@@ -32,23 +32,28 @@ export const ProductStore = signalStore(
           take(1),
           switchMap(() => productService.getProducts()), tapResponse({
             next: (resp) => {
-              patchState(state, {products: resp})
-            }, error: (err: HttpErrorResponse) => patchState(
-              state, {error: `Error ao buscar produtos. Status: ${err.status}`})
+              patchState(store, {products: resp})
+            }, error: (err: HttpErrorResponse) =>
+              patchState(store, {error: `Error ao buscar produtos. Status: ${err.status}`})
           })
         )
       ),
       loadProducts() {
         toSignal(productService.getProducts()
           .pipe(
-            tap((resp) => patchState(state, {products: resp})),
+            tap((resp) => patchState(store, {products: resp})),
             catchError((err: HttpErrorResponse) => {
-                patchState(state, {error: `Error ao buscar produtos. Status: ${err.status}`})
+                patchState(store, {error: `Error ao buscar produtos. Status: ${err.status}`})
                 return EMPTY;
             })
           )
         )
       }
+    }
+  }),
+  withHooks ({
+    onInit(store) {
+      store.loadProducts();
     }
   }),
 )

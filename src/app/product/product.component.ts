@@ -23,10 +23,6 @@ export class ProductComponent {
   protected products = this.productStore.products;
   protected error = this.productStore.error;
 
-  constructor() {
-    this.productStore.loadProducts();
-  }
-
   addToCart(product: IProduct) {
     this.cartStore.addToCart(product);
   }
